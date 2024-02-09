@@ -1,11 +1,23 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { validateCredentials } from "../utils/validateForm";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [isSignInForm, setIsSignInForm] = useState(true);
+
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
 
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -20,10 +32,56 @@ const Login = () => {
     );
 
     setErrorMessage(message);
+    if (message) return;
+    if (!isSignInForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              const { uid, displayName, email } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  displayName: displayName,
+                  email: email,
+                })
+              );
+            })
+            .catch((error) => {});
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+
+          setErrorMessage(errorCode);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+
+          setErrorMessage(errorCode);
+        });
+    }
   };
 
   return (
-    <div className="relative bg-black ">
+    <div>
       <Header />
       <div className="absolute">
         <img
@@ -40,6 +98,7 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
+            ref={name}
             type="text"
             placeholder="Enter your name"
             className="my-2 p-2 w-full h-12 rounded-md bg-transparent bg-black border border-gray-400 font-semibold"
