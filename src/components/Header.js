@@ -36,16 +36,16 @@ const Header = () => {
   return (
     <div className="w-full h-[70px] bg-gradient-to-b from-black absolute z-40 bg-opacity-5 flex justify-between ">
       <div>
-        <img src={LOGO_URL} className=" ml-20 w-48 absolute   z-50" />
+        <img src={LOGO_URL} className=" ml-4 w-48 absolute   z-50" />
       </div>
       {user && (
         <div className="flex">
-          <p className="mt-4 mr-2 w-60px h-35px px-3 py-2 text-lg font-bold">
+          <p className="mt-4 mr-2 w-60px h-35px px-3 py-2 text-lg font-bold text-white">
             {user.displayName}
           </p>
           <div>
             <button
-              className="w-60px h-30px px-2 py-2 bg-red-500 hover:bg-red-700 mr-16 mt-4 rounded-lg font-bold text-lg"
+              className="w-60px h-30px px-2 py-2 bg-red-700 hover:bg-red-900 hover:text-white mr-16 mt-4 rounded-lg font-bold text-lg"
               onClick={handleSignOut}
             >
               SignOut
