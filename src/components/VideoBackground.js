@@ -26,7 +26,7 @@ const VideoBackground = ({ movieId }) => {
   return (
     <div className="w-screen overflow-x-hidden">
       <iframe
-        className="w-screen aspect-video overflow-x-hidden"
+        className="w-screen aspect-video overflow-x-hidden object-fill bg-gradient-to-t from-black"
         src={
           "https://www.youtube-nocookie.com/embed/SzINZZ6iqxY?si=" +
           trailerKey +

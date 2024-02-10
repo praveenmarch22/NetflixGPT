@@ -34,7 +34,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="w-full h-[70px] bg-gradient-to-b from-black absolute z-40 bg-opacity-5 flex justify-between ">
+    <div className="w-full h-[70px] bg-gradient-to-b from-black absolute z-30 bg-opacity-5 flex justify-between ">
       <div>
         <img src={LOGO_URL} className=" ml-4 w-48 absolute   z-50" />
       </div>
@@ -45,7 +45,7 @@ const Header = () => {
           </p>
           <div>
             <button
-              className="w-60px h-30px px-2 py-2 bg-red-700 hover:bg-red-900 hover:text-white mr-16 mt-4 rounded-lg font-bold text-lg"
+              className="w-60px h-30px px-2 py-2 bg-red-700 hover:bg-red-900 hover:text-white mr-10 mt-4 rounded-lg font-bold text-lg"
               onClick={handleSignOut}
             >
               SignOut
