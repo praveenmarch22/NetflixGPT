@@ -8,7 +8,9 @@ const MainContainer = () => {
 
   if (movies === null) return;
 
-  const { title, overview, id } = movies[0];
+  const randomIndex = Math.floor(Math.random() * 20);
+
+  const { title, overview, id } = movies[randomIndex];
 
   return (
     <div className="">
